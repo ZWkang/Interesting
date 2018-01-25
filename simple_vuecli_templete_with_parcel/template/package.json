@@ -1,0 +1,38 @@
+{
+    "name": "{{ name }}",
+    "description": "{{ description }}",
+    "version": "1.0.0",
+    "author": "{{ author }}",
+    "license": "{{ license }}",
+    "private": true,
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "npm run start",
+      "start": "parcel index.html",
+      "watch": "parcel watch index.html -d watching",
+      "build": "parcel build index.html --no-minify --no-cache -d dist"
+    },
+    "dependencies": {
+      "vue": "^2.5.13"
+    },
+    {{#postcss}}
+    "browserslist": [
+      "> 1%",
+      "last 2 versions",
+      "not ie <= 8"
+    ],
+    {{/postcss}}
+    "devDependencies": {
+      "parcel-bundler": "^1.4.1",
+      "babel-preset-env": "^1.6.1",
+      "postcss": "^6.0.16",
+      {{#sass}}
+      "node-sass": "^4.5.3",
+      {{/sass}}
+      {{#postcss}}
+      "autoprefixer": "^7.2.5",
+      "postcss": "^6.0.16",
+      "postcss-modules": "^1.1.0",
+      {{/postcss}}
+    }
+  }
