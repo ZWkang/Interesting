@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TODO LIST</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a class="brand-logo center">
+                TODO LIST
+            </a>
+        </div>
+    </nav>
+    <ul id="mainContainer">
+
+    </ul>
+
+
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const ul = document.querySelector('#mainContainer');
+        ipcRenderer.on('item:add',function(e,item){
+            ul.className = 'collection';
+            const li = document.createElement('li');
+            li.className = 'collection-item';
+            const itemText = document.createTextNode(item);
+            li.appendChild(itemText);
+            // const li = '<li class="collection-item">'+item+'</li>';
+            ul.appendChild(li);  
+            // ul.innerHTML = ul.innerHTML+li;     
+        })
+        //clear items
+        ipcRenderer.on('item:clear',function(e){
+            ul.innerHTML = '';
+            // if(ul.clildren.length == 0){
+                ul.className = '';
+            // }
+        })
+
+        // Remove item by doubleclick
+        ul.addEventListener('dblclick',function(e){
+            e.target.remove();
+            // console.log(ul.clildren.length);
+            if(ul.children.length == 0){
+                ul.className = '';
+            }
+        })
+    </script>
+</body>
+</html>

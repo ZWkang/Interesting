@@ -1,0 +1,18 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "it's a simple todolist use by Electron",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "ZWkang",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.7.10"
+  },
+  "devDependencies": {
+    "electron-packager": "^10.1.0"
+  }
+}
