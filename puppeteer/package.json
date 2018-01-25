@@ -1,0 +1,33 @@
+{
+  "name": "puppeteer_user",
+  "version": "1.0.0",
+  "description": "puppeteer test and use to show some demos",
+  "main": "index.js",
+  "dependencies": {
+    "babel-preset-env": "^1.6.1",
+    "postcss": "^6.0.16",
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "parcel-bundler": "1.4.1",
+    "koa": "^2.4.1",
+    "mocha": "^5.0.0",
+    "puppeteer": "^1.0.0",
+    "node-sass": "^4.7.2",
+    "postcss-modules": "^1.1.0",
+    "concurrently": "^3.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "spaserver": "parcel ./demo2vueserver/index.html",
+    "getpdf": "node demo1.pdf.js",
+    "autosearch": "node demo4.ui.js",
+    "demo2": "concurrently \"npm run spaserver\" \"node demo2.js\" ",
+    "demo1": "node demo1.js",
+    "demo3": "node demo3.js",
+    "demo4": "mocha demo4.js --timeout 10000",
+    "demo5": "node demo5.js"
+  },
+  "author": "ZWkang",
+  "license": "MIT"
+}
