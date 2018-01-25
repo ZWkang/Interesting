@@ -1,0 +1,24 @@
+{
+  "name": "graphql_demo",
+  "version": "1.0.0",
+  "description": "graphql demo",
+  "main": "simpledemo.js",
+  "scripts": {
+    "dev:simpledemo1": "nodemon simpledemo1.js",
+    "dev:simpledemo2":"nodemon simpledemo2.js",
+    "json:server":"json-server --watch data.json",
+    "start:demo1":"concurrently \"npm run dev:simpledemo1\" ",
+    "start:demo2":"concurrently \"npm run dev:simpledemo2\" \"npm run json:server\""
+  },
+  "author": "ZWkang",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^3.5.1",
+    "axios": "^0.17.1",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.12.3",
+    "json-server": "^0.12.1",
+    "nodemon": "^1.14.11"
+  }
+}

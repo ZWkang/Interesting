@@ -1,0 +1,46 @@
+{
+  "customers": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "age": 36
+    },
+    {
+      "id": "2",
+      "name": "Keith Wilson",
+      "email": "kieth@gmail.com",
+      "age": 50
+    },
+    {
+      "id": "3",
+      "name": "Tom Jones",
+      "email": "tom@gmail.com",
+      "age": 23
+    },
+    {
+      "id": "5",
+      "name": "Jen Thompson",
+      "email": "jen@gmail.com",
+      "age": 22
+    },
+    {
+      "name": "kangkang",
+      "email": "kang@gmail.com",
+      "age": 30,
+      "id": "ePk5PmZ"
+    },
+    {
+      "name": "aaa",
+      "email": "ka@gmail.com",
+      "age": 13,
+      "id": "ihk7rR6"
+    },
+    {
+      "name": "aaa",
+      "email": "a@gmail.com",
+      "age": 22,
+      "id": "nwmB24a"
+    }
+  ]
+}
