@@ -9,6 +9,7 @@
 
 These are just a few simple demonstrations of puppeteer that can be combined with the article to eat a better flavor ~ ~ ~
 
+[初尝puppeteer(first time use puppeteer)](http://zwk.life/2018/01/%E5%88%9D%E5%B0%9Dpuppeteer/405.html)
 ---
 
 ## Getting Start
