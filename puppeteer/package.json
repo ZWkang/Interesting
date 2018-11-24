@@ -9,7 +9,7 @@
     "vue": "^2.5.13"
   },
   "devDependencies": {
-    "parcel-bundler": "1.4.1",
+    "parcel-bundler": "^1.4.1",
     "koa": "^2.4.1",
     "mocha": "^5.0.0",
     "puppeteer": "^1.0.0",
