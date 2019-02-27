@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <canvas width="2000" height="2000">
+
+  </canvas>
+  <script>
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    var image = new Image(); 
+    image.src = 'https://s3a.bytecdn.cn/aweme/resource/web/static/image/index/logo_efcda07.png'; 
+    image.crossOrigin = 'Anonymous'; 
+    const arra = []
+    image.onload = function(){ 
+      //将图片按像素写入画布 
+      context.drawImage(image,0,0,this.width,this.height); 
+      //读取图片某位置像素信息(x,y为需要读取的像素位置) 
+      // imageData = context.getImageData(x,y,1,1).data; 
+      for(var i = 0 ; i< this.width ; i ++  ){
+        for(var j = 0 ; j < this.height ; j ++){
+          const data = context.getImageData(i,j,1,1).data
+          const result = [i,j,`rgba(${data[0]},${data[1]},${data[2]},${(data[3]/255)})`]
+          // console.log(result)
+          arra.push(result)
+        }
+      }
+      console.log(JSON.stringify(arra))
+    }
+    
+
+
+    
+
+  </script>
+</body>
+</html>
