@@ -28,12 +28,12 @@ import BorderMagic from './components/someTrack/borderMagic'
 ```
 props
 
-imageUrl (赋予能力  您可以使用网络资源图片进行获取转换成我们的one-div)
-normalSize 默认得一个像素块大小
-matrixArray (手动输入矩阵数组)
-borderStyle (最外边框得border样式)
-isDuble (决定是否水平复制翻转)(因为大量的像素图是水平翻转完成)
-isDubleTwo={false} (翻转的点)(121)(1221)
+ - imageUrl (赋予能力  您可以使用网络资源图片进行获取转换成我们的one-div)
+ - normalSize 默认得一个像素块大小
+ - matrixArray (手动输入矩阵数组)
+ - borderStyle (最外边框得border样式)
+ - isDuble (决定是否水平复制翻转)(因为大量的像素图是水平翻转完成)
+ - isDubleTwo={false} (翻转的点)(121)(1221)
 ```
 
 ---
