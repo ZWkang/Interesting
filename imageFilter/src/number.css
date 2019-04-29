@@ -1,0 +1,24 @@
+.rc-input-number-input-wrap{
+    box-sizing: border-box;
+
+}
+*{
+    box-sizing: border-box;
+}
+.rc-input-number-input{
+    padding: 0 3px;
+    height: 100%;
+}
+.rc-input-number{
+    flex: 2;
+    box-sizing: border-box;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 100%;
+}
+.rc-input-number-handler-up{
+    height: 50%;
+}
+.rc-input-number-handler-down{
+    height: 50%;
+}

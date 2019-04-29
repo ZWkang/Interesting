@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  display: flex;
+  width: 100%;
+  --BASECOLOR: rgb(115,65,208);
+}
+#root {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+:root {
+  --global-color: #666;
+  --pane-padding: 5px 42px;
+}
+
+/* const BASECOLOR= 'rgb(115,65,208)'
+const PALE_LIGHT_VIOLET = 'rgb(207,196,226)'; */

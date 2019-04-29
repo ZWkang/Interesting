@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <canvas> -->
+        <img src="./foo.png" alt="" id="img">
+    <!-- </canvas> -->
+    <button onclick="changefilter()"></button>
+    <canvas width="330" height="326" style="position:absolute;top:8;left:8;"></canvas>
+    <script>
+        function changefilter(e) {
+            var target = document.querySelector('#img')
+                target.style.filter = 'blur(50px)';
+            // var ctx = target.getContext('2d');
+            // ctx.fill('red')
+            // var ctx = document.createElement('canvas').getContext('2d');
+            console.log(target.getBoundingClientRect());
+            // console.log(ctx);
+            setTimeout(()=>{
+                document.querySelector('canvas').getContext('2d').drawImage(target,0,0)
+            },16)
+            
+            
+        }
+    </script>
+</body>
+
+</html>
