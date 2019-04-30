@@ -4,9 +4,10 @@ import classNames from 'classnames'
 import Dropzone from 'react-dropzone'
 import styled from 'styled-components'
 import html2canvas from 'html2canvas'
+import PropTypes from 'prop-types'
 
 const DragZoneContainer = styled.div`
-  border: 4px dashed grey;
+  border: 2px dashed grey;
   border-radius: 5px;
   position: relative;
   /* max-height: 50vh; */
@@ -15,21 +16,26 @@ const DragZoneContainer = styled.div`
   min-height: 50px;
   margin: 0;
   padding: 0;
+  /* outline: 0; */
+  min-height: 200px;
 `
-
-const ActiveMask = styled.div`
+const Mask = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 36px;
   line-height: 1;
   z-index: 10;
+  color: #3f3f3f;
+`
+
+const ActiveMask = styled(Mask)`
+  background: rgba(0, 0, 0, 0.3);
 `
 const ImgContainer = styled.figure`
   width: auto;
@@ -53,7 +59,6 @@ const ImageComponent = forwardRef((props, ref) => {
       }></img>
     </ImgContainer>
   )
-  // return <LogProps {...props} forwardedRef={ref} />;
 });
 const handleHueRotate = (data) => {
   let result = data;
@@ -70,7 +75,6 @@ const handleDropShadow = (data) => {
   const color = data[len-1]
   const str = temp.reduce((prev, next) => (prev + `${next}px `), '')
   const dropshadow = str + color
-  // console.log(dropshadow)
   return dropshadow
 }
 // 对数值做不同处理
@@ -98,37 +102,41 @@ const composeFilterContext = (data) => {
 }
 
 class MyDropzone extends React.Component {
-    state = {
-        uploadfiles: []
-    }
     constructor() {
       super()
       this.ImageRef = React.createRef()
+      this.state = {
+        uploadfile: null
+      }
     }
    onDrop = (acceptedFiles, rejectedFiles) => {
      // Do something with files
     //  console.log(acceptedFiles)
     this.setState({
-        uploadfiles: [...this.state.uploadfiles, acceptedFiles]
-    }, () => {
-        console.log(this.state.uploadfiles)
-        // console.log(this.state.uploadfiles[0] instanceof Blob)
-        const a = window.URL.createObjectURL(acceptedFiles[0])
-        //通过fileReaderl 来监听它的的事件
-        // fileReader.onload=function(e){
-        //在盒子中写入一个img标签，并将其读到的资源赋给src实现预览
-            // imgContainer.innerHTML="<img src='"+fileReader.result+"' width='300px' height='300px' />";
-            this.ImageRef.current.setAttribute('src',a )
-        // }
-        // files.map(file => Object.assign(file, {
-        //   preview: URL.createObjectURL(file)
-        // })
-    })
-    
+        uploadfile: acceptedFiles
+    }, this.setUpImageRefSrc)
+   }
+   setUpImageRefSrc = () => {
+    const { uploadfile } = this.state
+    if(!uploadfile) return
+    const currentUploadFileBase64Src = window.URL.createObjectURL(uploadfile[0])
+    this.ImageRef.current.setAttribute('src', currentUploadFileBase64Src)
+   }
+   resetImageSrc = () => {
+     const currentTarget = this.ImageRef
+     if(currentTarget && currentTarget.current) {
+      currentTarget.current.setAttribute('src', '')
+     }
+   }
+   
+   clear = () => {
+     this.setState({
+       uploadfile: null
+     }, this.resetImageSrc)
    }
    render() {
-     {console.log(this.props.refss)}
-     const {filterValue} = this.props
+     const { filterValue } = this.props
+     const { uploadfile } = this.state
      const filter = composeFilterContext(filterValue)
     return (
       <Fragment>
@@ -137,11 +145,13 @@ class MyDropzone extends React.Component {
             return (
               <DragZoneContainer
                 {...getRootProps()}
-                // className={classNames('dropzone', {'dropzone--isActive': isDragActive})}
               >
                 <input {...getInputProps()} />
                 {
-                  isDragActive && <ActiveMask> drag here </ActiveMask>
+                  isDragActive ? <ActiveMask> drag here </ActiveMask> : null
+                }
+                {
+                  (uploadfile || isDragActive) ? null:  <Mask>upload</Mask>
                 }
                 <ImageComponent ref={this.ImageRef} filter={filter}/>
                 
@@ -149,10 +159,15 @@ class MyDropzone extends React.Component {
             )
           }}
         </Dropzone>
-        {/* <button type="" onClick={this.handleBtnClick}> click </button> */}
       </Fragment>
-      
     );
   }
 }
+
+MyDropzone.propTypes = {
+  filterValue: PropTypes.shape({
+
+  })
+}
+
 export default MyDropzone

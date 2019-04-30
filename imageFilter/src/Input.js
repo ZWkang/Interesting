@@ -1,9 +1,8 @@
 import 'rc-input-number/assets/index.css';
 import InputNumber from 'rc-input-number';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import styled from 'styled-components'
-import { SliderContainer, ValueSpan } from './baseComponent'
+import { InputItemContainer, ValueSpan, LabelBaseSize, SizeIncrement } from './baseComponent'
 
 import './number.css'
 const AddonInput = styled.span`
@@ -15,13 +14,24 @@ const AddonInput = styled.span`
   line-height: 1;
   color: #555;
   text-align: center;
-  background-color: rgb(140,115,170);
-  border: 1px solid rgb(140,115,170);
+  border: 1px solid;
+  border-color: var(--default-border-color);
   border-radius: 4px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   box-sizing: border-box;
   height: 100%;
+
+`
+const InputWrapper = styled.div`
+  display: flex;
+  flex:0 0 75%;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+`
+const Container = styled(InputItemContainer)`
+  padding: 10px;
 `
 
 const MutipeLabel = styled(ValueSpan)`
@@ -29,16 +39,39 @@ const MutipeLabel = styled(ValueSpan)`
   flex-direction: column;
 `
 const MutipeLabelItem = styled(ValueSpan)`
-  flex: 1;
   width: 100%;
-  font-size: 12px;
+  vertical-align: text-top;
+  /* display: inline-block; */
 `
-
+const isDef = value => typeof value === 'undefined'
+const handleStartValue = ({
+  defaultValue,
+  value
+}) => {
+  const result = isDef(defaultValue) ? 
+                  (
+                    isDef(value)
+                      ? 0
+                      : value
+                  )
+                  : defaultValue
+  return result
+}
 export default class InputComponent extends React.Component {
-  state = {
-    value: this.props.value || 0,
-  };
-  
+  // state = {
+  //   value: this.props.defaultValue || this.props.value || 0,
+  // };
+  constructor(props) {
+    super(props)
+    const value = handleStartValue(props)
+    console.log(handleStartValue({
+      defaultValue: undefined,
+      value: 123
+    }))
+    this.state = {
+      value
+    }
+  }
   onChange = (value) => {
     this.setState({ value });
   }
@@ -68,19 +101,17 @@ export default class InputComponent extends React.Component {
       max,
       name,
       addon='%'
-      
     } = this.props
     return (
       
-      <SliderContainer>
+      <Container>
         <MutipeLabel>
           {
             name.map((eachname, index) => {
+              const size = LabelBaseSize - SizeIncrement * index
               return (
                 <MutipeLabelItem
-                  size={
-                    (24 - index * 8)
-                  }
+                  size={size}
                 >
                   {eachname}
                 </MutipeLabelItem>
@@ -88,11 +119,12 @@ export default class InputComponent extends React.Component {
             })
           }
         </MutipeLabel>
-        <InputNumber
+          <InputWrapper>
+          <InputNumber
           min={min}
           max={max}
           style={{
-            borderStyle: "rgb(140,115,170)"
+            borderStyle: "#000"
           }}
           required
           value={this.state.value}
@@ -101,7 +133,9 @@ export default class InputComponent extends React.Component {
           // disabled={this.state.disabled}
         />
         <AddonInput>{addon}</AddonInput>
-      </SliderContainer>
+          </InputWrapper>
+
+      </Container>
     );
   }
 }

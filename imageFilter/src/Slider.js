@@ -3,8 +3,7 @@ import React from 'react'
 import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import styled from "styled-components";
-import FilterContext from './FilterContext'
-import { SliderContainer, ValueSpan } from './baseComponent'
+import {InputItemContainer, ValueSpan, LabelBaseSize, SizeIncrement } from './baseComponent'
 
 const Handle = Slider.Handle;
 
@@ -23,6 +22,10 @@ const handle = (props) => {
   );
 };
 
+const Container = styled(InputItemContainer)`
+  padding: 10px 10px 1.5em 10px;
+`
+
 class SliderComponent extends React.Component {
   constructor(props){
     super(props)
@@ -31,7 +34,6 @@ class SliderComponent extends React.Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps)
     if(nextProps.value !== this.props.value) {
       this.setState({
         value: nextProps.value
@@ -39,7 +41,6 @@ class SliderComponent extends React.Component {
     }
   }
   shouldComponentUpdate(nextProps,nextState) {
-    // console.log(nextProps,nextState)
     if(this.props.value === nextState.value) {
       return false
     }
@@ -69,29 +70,25 @@ class SliderComponent extends React.Component {
       onChange
     } = this.props
     // {console.log(`rerender: `, name)}
+    // console.log(name, this.props.marks)
     return (
-      <FilterContext.Consumer>
-        {context => (
-          <SliderContainer>
-            <ValueSpan>{name}: </ValueSpan>
-            <Slider
-              value={value}
-              min={min}
-              max={max}
-              handle={handle}
-              marks={marks}
-              // tipFormatter={tipFormatter}
-              onChange={this.handleOnchange}
-              onAfterChange={this.afterChange}
-              style={{
-                flex: 2,
-                margin: '0 15px'
-              }}
-            />
-          </SliderContainer>
-        )}
-      </FilterContext.Consumer>
-      
+      <Container>
+        <ValueSpan size={LabelBaseSize}>{name}: </ValueSpan>
+        <Slider
+          value={value}
+          min={min}
+          max={max}
+          handle={handle}
+          marks={marks}
+          // tipFormatter={tipFormatter}
+          onChange={this.handleOnchange}
+          onAfterChange={this.afterChange}
+          style={{
+            flex: 2,
+            margin: '0 15px'
+          }}
+        />
+      </Container>
     )
   }
 }
