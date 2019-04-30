@@ -1,0 +1,11 @@
+{
+  "name": "canvas2image",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./hackCanvas2Image.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
