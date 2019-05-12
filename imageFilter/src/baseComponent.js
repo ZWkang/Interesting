@@ -68,7 +68,7 @@ export const LayoutRight = styled.div`
 
 
 export const BaseBtn = styled.button`
-  outline: none;
+  outline: 0;
   text-decoration: none;
   text-align: center;
   height: 40px;
@@ -81,6 +81,9 @@ export const BaseBtn = styled.button`
   font-weight: bold;
   border: 1px solid #3f3f3f;
   margin-bottom: 10px;
+  :focus {
+    border-color: highlight;
+  }
 `
 
 export const Button = styled(BaseBtn)`
