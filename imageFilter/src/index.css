@@ -5,6 +5,7 @@ body {
   display: flex;
   width: 100%;
   --BASECOLOR: rgb(115,65,208);
+  color: var(--default-color);
 }
 #root {
   display: flex;
@@ -14,6 +15,9 @@ body {
 :root {
   --global-color: #666;
   --pane-padding: 5px 42px;
+  --default-color: #1a73e8;
+  --default-border-color: rgba(45, 136, 247, 0.2);
+  /* 26, 115, 227*/
 }
 
 /* const BASECOLOR= 'rgb(115,65,208)'

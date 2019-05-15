@@ -5,40 +5,49 @@ const BASECOLOR= 'rgb(115,65,208)'
 const PALE_LIGHT_VIOLET = 'rgb(207,196,226)';
 
 const colorMap = {
-  primary: '#A5DE37',
+  primary: '#58E758',
   default: '#EEE',
   danger: '#FF4351'
 }
 
 
-export const SliderContainer = styled.div`
+export const BaseInputItemContainer = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 60px;
+  height: auto;
+  height: auto;
   display: flex;
   flex-direction: space-between;
   align-items: center;
+  vertical-align: top;
+  border-bottom: 1px solid;
+  border-color: var(--default-border-color);
+  will-change: transform;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+`
+export const InputItemContainer = styled(BaseInputItemContainer)`
+  :hover{
+    transform: scale(1.05);
+  }
   @media only screen and (max-width: 600px) {
     flex-direction: column;
   }
-  padding: 15px 20px 10px 20px;
-  vertical-align: top;
-  border: 1px solid var(--BASECOLOR);
-  will-change: transform;
-  transition: 2s ease;
-  cursor: pointer;
-  :hover{
-    transform: translateX(-10px);
-    
-  }
 `
 
+
+
 export const ValueSpan = styled.span`
-  flex: 1;
   text-align: left;
-  font-size: 28px;
-  font-size: 12px;
-  color: rgb(140,115,170);
+  font-size: 20px;
+  color: #3f3f3f;
+  flex: 0 0 25%;
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+  }
+  ${is('size')`
+    font-size: ${props=>props.size}px;
+  `}
 `
 export const LayoutContainer = styled.section`
   display:flex;/*设为伸缩容器*/  
@@ -59,12 +68,10 @@ export const LayoutRight = styled.div`
 
 
 export const BaseBtn = styled.button`
-  /* flex: 1; */
-  outline: none;
+  outline: 0;
   text-decoration: none;
   text-align: center;
   height: 40px;
-  /* max-width: 80px; */
   width: calc(100%/4);
   display: inline-block;
   cursor: pointer;
@@ -74,6 +81,12 @@ export const BaseBtn = styled.button`
   font-weight: bold;
   border: 1px solid #3f3f3f;
   margin-bottom: 10px;
+  :focus {
+    border-color: highlight;
+  }
+`
+
+export const Button = styled(BaseBtn)`
   ${is('color')`
     background: ${props => colorMap[props.color]};
   `}
@@ -81,4 +94,11 @@ export const BaseBtn = styled.button`
     border-radius: 6px;
     box-shadow: 2px 2px 2px #3f3f3f;
   }
+  @media only screen and (max-width: 600px) {
+    font-size: 12px;
+  }
 `
+
+
+export const LabelBaseSize = 16;
+export const SizeIncrement = 2;
