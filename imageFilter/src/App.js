@@ -15,8 +15,8 @@ import set from 'lodash.set'
 import debounce from 'lodash.debounce'
 import is from 'styled-is'
 import html2canvas from 'html2canvas'
-import Canvas2Image from './hackCanvas2Image'
-import { LayoutContainer, LayoutLeft, LayoutRight, BaseBtn} from './baseComponent'
+import Canvas2Image from 'canvas2image'
+import { LayoutContainer, LayoutLeft, LayoutRight, Button} from './baseComponent'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -29,10 +29,13 @@ const Page = styled.main`
   box-sizing: border-box;
   flex-direction: column;
   width: 100%;
+  ${is('center')`
+    margin: 0 auto;
+  `}
+  ${is('maxWidth')`
+    max-width: ${props => props.maxWidth}
+  `}
 `
-
-const Handle = Slider.Handle;
-
 
 const Section = styled.section`
   margin: 0;
@@ -41,6 +44,8 @@ const Section = styled.section`
   width: 100%;
   ${is('half')`
     width: 50%;
+  `}
+  ${is('center')`
   `}
 `
 
@@ -63,27 +68,11 @@ const btnGroup = [
   }
 ]
 
-
-const handle = (props) => {
-  const { value, dragging, index, ...restProps } = props;
-  return (
-    <Tooltip
-      prefixCls="rc-slider-tooltip"
-      overlay={value}
-      visible={dragging}
-      placement="top"
-      key={index}
-    >
-      <Handle value={value} {...restProps} />
-    </Tooltip>
-  );
-};
-
 const Context = {
   blur:0,
   brightness:100,
   contrast:100,
-  "drop-shadow":[ 1, 0, 0, '#000000'],
+  "drop-shadow":[ 0, 0, 0, '#000000'],
   grayscale:0,
   "hue-rotate":0,
   invert:0,
@@ -91,19 +80,6 @@ const Context = {
   saturate:100,
   sepia: 0
 }
-// filter: blur(5px);
-// filter: brightness(0.4);
-// filter: contrast(200%);
-// filter: drop-shadow(16px 16px 20px blue);
-// filter: grayscale(50%);
-// filter: hue-rotate(90deg);
-// filter: invert(75%);
-// filter: opacity(25%);
-// filter: saturate(30%);
-// filter: sepia(60%);
-// const FilterContext = createContext({
-//   ...Context
-// })
 
 const handleHueRotate = (data) => {
   let result = data;
@@ -158,14 +134,7 @@ class App extends Component {
     })
   }
   saveAs = (type) => {
-    
     return () => {
-      
-      // if(!this.refs.dropzone || !this.refs.dropzone.ImageRef || !this.refs.dropzone.ImageRef.current){
-        
-      // }
-      // console.log(this.refs.dropzone, this.refs.dropzone.ImageRef, this.refs.dropzone.ImageRef.current)
-      
       const saveRef = this.refs.dropzone.ImageRef.current
       const saveRefSrc = saveRef.getAttribute('src')
       if(!saveRefSrc) {
@@ -177,6 +146,9 @@ class App extends Component {
         Canvas2Image.saveAsImage(canvas, canvas.width, canvas.height, type, this.update)
       });
     }
+  }
+  clearImageContainer = () => {
+    this.refs.dropzone.clear()
   }
   toastId = null;
 
@@ -202,6 +174,25 @@ class App extends Component {
       })
     }
   }
+  BtnGroupdAppendChild = ({
+    resetState,
+    resetImage
+  }) => {
+    return (
+      <React.Fragment>
+        <Button
+          onClick={resetImage}
+        >
+          重置图像
+        </Button>
+        <Button
+          onClick={resetState}
+        >
+          重置状态
+        </Button>
+      </React.Fragment>
+    )
+  }
   render() {
     const { dispatch } = this.props
     const {
@@ -214,35 +205,27 @@ class App extends Component {
         resetState={this.resetState}
         setKeyChange={this.setKeyChange}
       >
-      {/* <ToastContainer></ToastContainer> */}
-      <Page>
-
-        <LayoutContainer>
-          <LayoutLeft>
-            <Section>
-              <MyDropzone ref="dropzone" filterValue={this.state.filterValue}></MyDropzone>
-            </Section>
-            <Section style={{
-              flex: 1
-            }}>
-              <BtnGroups
-                saveAs={this.saveAs}
-                config={btnGroup}
-              >
-                <BaseBtn
-                  onClick={this.resetState}
-                >
-                  重置参数
-                </BaseBtn>
-              </BtnGroups>
-            </Section>
-          </LayoutLeft>
-          <LayoutRight>
+        <Page
+          center
+          maxWidth="70vw"
+        >
+          <Section>
+            <MyDropzone ref="dropzone" filterValue={this.state.filterValue}></MyDropzone>
+          </Section>
+          <Section>
+            <BtnGroups
+              saveAs={this.saveAs}
+              config={btnGroup}
+              resetState={this.resetState}
+              resetImage={this.clearImageContainer}
+              renderAppendBtn={this.BtnGroupdAppendChild}
+            >
+            </BtnGroups>
+          </Section>
+          <Section>
             <GeneratorForm />
-          </LayoutRight>
-        </LayoutContainer>
-
-      </Page>
+          </Section>
+        </Page>
         
       </Provide>
     )

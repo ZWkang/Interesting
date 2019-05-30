@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { SliderContainer, ValueSpan } from './baseComponent'
+import {InputItemContainer, ValueSpan } from './baseComponent'
 
 const InputColor = styled.input.attrs({
   type: 'color'
@@ -9,7 +9,14 @@ const InputColor = styled.input.attrs({
   border: 0;
   background: #fff;
   border: 2px dashed rgb(140,115,170);
-  flex: 2;
+  flex: 0 0 75%;
+  @media only screen and (max-width:600px ) {
+    width: 100%;
+  }
+`
+
+const Container = styled(InputItemContainer)`
+  padding: 10px;
 `
 
 const MutipeLabel = styled(ValueSpan)`
@@ -19,7 +26,6 @@ const MutipeLabel = styled(ValueSpan)`
 const MutipeLabelItem = styled(ValueSpan)`
   flex: 1;
   width: 100%;
-  font-size: 12px;
 `
 
 class Color extends Component {
@@ -45,14 +51,14 @@ class Color extends Component {
     const { value } = this.state
     const { name, onChange } = this.props
     return (
-      <SliderContainer>
+      <Container>
         <MutipeLabel>
           {
             name.map((eachname, index) => {
               return (
                 <MutipeLabelItem
                   size={
-                    (24 - index * 8)
+                    (18 - index * 3)
                   }
                 >
                   {eachname}
@@ -68,7 +74,7 @@ class Color extends Component {
           value={value}
           onChange={this.handleColorChange}
         ></InputColor>
-      </SliderContainer>
+      </Container>
     )
   }
 }

@@ -1,25 +1,14 @@
 import React from 'react'
-import btnConfig from './btn-group.js'
+import btnConfig from './formItem.config.js'
 import styled from "styled-components";
 import { Consumer } from './FilterContext'
-import SimpleInput from './simpleInput'
 import Slider from './Slider'
 import Input from './Input'
 import Color from './Color'
 import get from 'lodash.get'
 import debounce from 'lodash.debounce'
 
-const isDef = (v) => v == null
-const Dive = styled.div`
-  display: flex;
-`
-
-const Flex = styled.div`
-  flex: 1;
-  width: 30%;
-`
-
-
+const isDef = (v) => v === void 666
 
 class GeneratorForm extends React.Component {
   constructor(props) {
@@ -35,90 +24,89 @@ class GeneratorForm extends React.Component {
     })
     return result
   }
-  generator = (context, config = btnConfig, parent = {
-    // name: []
-    // key: 
-  }) => {
+  generator = (context, fromConfigs = btnConfig, parent = {}) => {
     const { filterValue } = context
-    const Child = config.map((v, i) => {
-      let { name } = v
+    const Child = fromConfigs.map((fromItem, i) => {
+      let {
+        name,
+        placeholder
+      } = fromItem
       name = [name]
-      // console.log(v)
-      v.config = v.config || {}
+      fromItem.config = fromItem.config || {}
 
       let getValue
       if(parent.name) {
-        let alias = isDef(v.config["alias"]) ? v.name : v.config["alias"]
+        let alias = isDef(fromItem.config["alias"]) ? fromItem.name : fromItem.config["alias"]
         getValue = parent.name.concat(alias).join('.')
         console.log(getValue)
-        name = parent.name.concat(v.name)
+        name = parent.name.concat(fromItem.name)
       }
       const path = name.join('.')
       
       const ItemValue = get(filterValue, getValue || path)
+      const {
+        max,
+        min = 0,
+        addon = 'px'
+      } = fromItem.config
 
-      // debugger
-      
-      if(v.type === 'text') {
+
+      const wrapper = {
+        value: ItemValue,
+        name: name,
+        key: i,
+        min: min,
+        max: max,
+        addon: addon,
+        placeholder: placeholder
+      }
+      if(fromItem.type === 'text') {
         const onChange = context.setKeyChange(getValue || path)
         return (
           <Input
-            value={ItemValue}
-            name={name}
-            placeholder={v.placeholder}
-            key={i}
+            {...wrapper}
             onChange={onChange}
-            addon={v.config.addon}
           ></Input>
         )
-      } else if(v.type === 'range') {
+      } else if(fromItem.type === 'range') {
         // console.log(filterValue[v.name])
         const onChange = debounce(context.setKeyChange(getValue || path), 300)
+        const { marks } = fromItem.config
+        console.log(fromItem.config)
+        console.log({
+          ...wrapper,
+          marks
+        })
         return (
           <Slider
-            value={ItemValue}
-            name={name}
-            key={i}
+            {...wrapper}
             onChange={onChange}
+            marks={marks}
           >
-            
           </Slider>
         )
-      } else if(v.type === 'number') {
+      } else if(fromItem.type === 'number') {
         const onChange = context.setKeyChange(getValue || path)
         return (
           <Input
-            value={ItemValue}
-            name={name}
-            placeholder={v.placeholder}
-            key={i}
+            {...wrapper}
             onChange={onChange}
-            addon={v.config.addon}
           ></Input>
         )
-      } else if (v.type === 'color') {
+      } else if (fromItem.type === 'color') {
         const onChange = context.setKeyChange(getValue || path)
         console.log(ItemValue)
         return (
           <Color
-            value={ItemValue}
-            name={name}
-            placeholder={v.placeholder}
-            key={i}
+            {...wrapper}
             onChange={onChange}
           ></Color>
         )
-      } else if (v.type === 'group') {
-
-        // const change = (v) => {
-        //   const path = name.join('.')
-        //   const changecallback = context.setKeyChange(path)
-        //   changecallback(v)
-        // }
+      } else if (fromItem.type === 'group') {
         return <React.Fragment>
           {this.generator(
             context,
-            v.children,
+            fromItem.children,
             {
               name
             }
@@ -129,29 +117,6 @@ class GeneratorForm extends React.Component {
     return Child
   }
   render() {
-      // <React.Fragment>
-      // <Consumer>
-        {/* <Dive>
-          {btnConfig.map((v, index) => {
-            if(v.type === 'text'){
-              return <Flex key={index} ref={v.name}>{v.name}</Flex>
-            } else if(v.type === 'range') {
-              return <Flex key={index}>{v.name}range</Flex>
-            } 
-          })}
-        </Dive> */}
-       
-        
-      // </Consumer>
-    // )
-    // return (
-    //   <React.Fragment>
-    //     <input type="color" onChange={(v) => {
-    //       console.log(v.target.value)
-    //     }}></input>
-    //   </React.Fragment>
-    // )
-    {console.log('fuck i rerendered')}
     return (
       <Consumer>
         {this.generator}
