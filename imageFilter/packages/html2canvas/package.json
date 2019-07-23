@@ -34,7 +34,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "css-line-break": "1.0.1"
+    "css-line-break": "1.1.1"
   },
   "deprecated": false,
   "description": "Screenshots with JavaScript",
