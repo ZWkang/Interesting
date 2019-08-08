@@ -1,0 +1,15 @@
+{
+  "name": "code_split",
+  "version": "1.0.0",
+  "description": "it is a simple demo for code splitting",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "node index.js"
+  },
+  "author": "ZWkang",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.3"
+  }
+}
