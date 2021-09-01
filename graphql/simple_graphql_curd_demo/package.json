@@ -13,7 +13,7 @@
   "author": "ZWkang",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^3.5.1",
+    "concurrently": "^6.0.0",
     "axios": "^0.18",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
