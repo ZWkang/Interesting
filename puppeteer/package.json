@@ -9,13 +9,13 @@
     "vue": "^2.5.13"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.4.1",
-    "koa": "^2.4.1",
-    "mocha": "^5.0.0",
-    "puppeteer": "^1.0.0",
-    "node-sass": "^4.7.2",
-    "postcss-modules": "^1.1.0",
-    "concurrently": "^3.5.1"
+    "parcel-bundler": "1.12.5",
+    "koa": "2.13.1",
+    "mocha": "5.2.0",
+    "puppeteer": "1.20.0",
+    "node-sass": "4.14.1",
+    "postcss-modules": "1.5.0",
+    "concurrently": "3.6.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chalk": "^4.1.2",
-    "ctressa": "^1.2.0"
+    "chalk": "4.1.2",
+    "ctressa": "1.2.0"
   }
 }
